@@ -3,34 +3,32 @@
 
 #include "esp_err.h"
 #include "driver/spi_master.h"
-#include "ssd1306.h"  // giả sử bạn dùng driver ssd1306 của component
+#include "esp_lcd_panel_io.h"
+#include "esp_lcd_panel_ops.h"
 
+// Struct quản lý màn hình OLED
 typedef struct {
-    spi_device_handle_t spi_dev;    // handle SPI
-    ssd1306_handle_t oled_handle;   // handle của driver SSD1306
+    // Handle giao tiếp IO (SPI)
+    esp_lcd_panel_io_handle_t io_handle;
+    // Handle điều khiển màn hình (Gửi lệnh Init, Reset, Draw...)
+    esp_lcd_panel_handle_t panel_handle;
 } oled_t;
 
 /**
- * @brief Khởi tạo OLED SPI
- *
- * @param oled Con trỏ tới struct oled_t để lưu handle SPI + OLED
- * @param host SPI host (ví dụ SPI2_HOST)
- * @param cs_io chân CS
- * @param dc_io chân DC (data/command)
- * @param reset_io chân reset
- * @param clock_speed_hz tốc độ SPI
- * @return esp_err_t
+ * @brief Khởi tạo màn hình OLED SSD1306 qua giao tiếp SPI
+ * * @param oled Con trỏ tới struct oled_t để lưu các handle
+ * @param host SPI Host ID (ví dụ SPI2_HOST)
+ * @param cs_io GPIO chân CS
+ * @param dc_io GPIO chân DC (Data/Command)
+ * @param reset_io GPIO chân RST (Reset)
+ * @param clock_speed_hz Tốc độ SPI (thường là 4MHz - 10MHz)
+ * @return esp_err_t ESP_OK nếu thành công
  */
 esp_err_t oled_init(oled_t *oled, spi_host_device_t host, int cs_io, int dc_io, int reset_io, int clock_speed_hz);
 
 /**
- * @brief Hiển thị các thông số đo lên OLED
- *
- * @param oled Con trỏ tới struct oled_t
- * @param bus_voltage Volts
- * @param current Amps
- * @param power Watts
- * @return esp_err_t
+ * @brief Hiển thị thông số đo (Placeholder)
+ * Lưu ý: Cần tích hợp thêm thư viện Font hoặc LVGL để vẽ chữ
  */
 esp_err_t oled_display_measure(oled_t *oled, float bus_voltage, float current, float power);
 
