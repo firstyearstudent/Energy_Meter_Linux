@@ -1,4 +1,3 @@
-
 #ifndef SPI_INIT_H
 #define SPI_INIT_H
 

@@ -1,4 +1,3 @@
-
 #include "oled_init.h"
 #include "esp_log.h"
 #include "ssd1306.h"
