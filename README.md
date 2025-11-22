@@ -1,6 +1,6 @@
 # Energy_Meter_Linux
 
-Dự án đo lường và giám sát năng lượng (Điện áp, Dòng điện, Công suất) sử dụng vi điều khiển ESP32 kết hợp với cảm biến INA226. Dữ liệu được hiển thị trực tiếp trên màn hình OLED và gửi qua cổng Serial (USB) để lưu trữ vào máy tính Linux (Fedora) dưới dạng file CSV.
+Dự án đo lường và giám sát năng lượng (Điện áp, Dòng điện, Công suất) sử dụng vi điều khiển ESP32 kết hợp với cảm biến INA226. Dữ liệu được hiển thị trực tiếp trên màn hình OLED và gửi qua cổng Serial (USB) để lưu trữ vào máy tính dưới dạng file CSV.
 
 ## 🚀 Tính năng
 - **Đo lường:** Điện áp Bus (V), Dòng điện (A), Công suất (W) theo thời gian thực.
