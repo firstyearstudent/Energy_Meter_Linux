@@ -41,7 +41,7 @@ void app_main(void)
     // 3. Init INA226
     ina226_handle_t ina_dev;
     ina226_config_t ina_cfg = INA226_CONFIG_DEFAULT;
-    ina_cfg.shunt_resistance = 0.002; // Chỉnh lại đúng R shunt của bạn
+    ina_cfg.shunt_resistance = 0.1; // Chỉnh lại đúng R shunt của bạn
     ina_cfg.max_current = 10.0;
     ESP_ERROR_CHECK(ina226_init(bus_handle, &ina_cfg, &ina_dev));
     ESP_ERROR_CHECK(ina226_calibrate(ina_dev, ina_cfg.max_current, ina_cfg.shunt_resistance));

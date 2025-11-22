@@ -9,7 +9,7 @@ BAUD_RATE = 115200
 
 # Tên thư mục và tên file
 FOLDER_NAME = "data_logs"
-FILE_NAME = "ina226_ketqua.csv"
+FILE_NAME = "ina_test.csv"
 
 def main():
     # 1. Xử lý đường dẫn file
