@@ -1,4 +1,4 @@
-/* * Data converted from /home/manhquan/esp/esp-idf/Energy_Meter/build/esp-idf/mbedtls/x509_crt_bundle
+/* * Data converted from C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/esp-idf/mbedtls/x509_crt_bundle
  */
 .data
 #if !defined (__APPLE__) && !defined (__linux__)

@@ -1,13 +1,13 @@
 # Target labels
  bootloader
 # Source files and their labels
-/home/manhquan/esp/esp-idf/Energy_Meter/build/CMakeFiles/bootloader
-/home/manhquan/esp/esp-idf/Energy_Meter/build/CMakeFiles/bootloader.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/CMakeFiles/bootloader-complete.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
-/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/CMakeFiles/bootloader
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/CMakeFiles/bootloader.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/CMakeFiles/bootloader-complete.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule

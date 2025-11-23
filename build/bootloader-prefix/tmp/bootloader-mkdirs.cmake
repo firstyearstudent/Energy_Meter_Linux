@@ -1,27 +1,27 @@
 # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
 # file Copyright.txt or https://cmake.org/licensing for details.
 
-cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
+cmake_minimum_required(VERSION 3.5)
 
 # If CMAKE_DISABLE_SOURCE_CHANGES is set to true and the source directory is an
 # existing directory in our source tree, calling file(MAKE_DIRECTORY) on it
 # would cause a fatal error, even though it would be a no-op.
-if(NOT EXISTS "/home/manhquan/esp/esp-idf/components/bootloader/subproject")
-  file(MAKE_DIRECTORY "/home/manhquan/esp/esp-idf/components/bootloader/subproject")
+if(NOT EXISTS "C:/Espressif/frameworks/esp-idf-v5.5/components/bootloader/subproject")
+  file(MAKE_DIRECTORY "C:/Espressif/frameworks/esp-idf-v5.5/components/bootloader/subproject")
 endif()
 file(MAKE_DIRECTORY
-  "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader"
-  "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix"
-  "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/tmp"
-  "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp"
-  "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src"
-  "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader"
+  "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix"
+  "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/tmp"
+  "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp"
+  "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src"
+  "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp"
 )
 
 set(configSubDirs )
 foreach(subDir IN LISTS configSubDirs)
-    file(MAKE_DIRECTORY "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
+    file(MAKE_DIRECTORY "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp/${subDir}")
 endforeach()
 if(cfgdir)
-  file(MAKE_DIRECTORY "/home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
+  file(MAKE_DIRECTORY "C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader-prefix/src/bootloader-stamp${cfgdir}") # cfgdir has leading slash
 endif()

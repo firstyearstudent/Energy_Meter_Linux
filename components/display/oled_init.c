@@ -67,14 +67,19 @@ esp_err_t oled_init(oled_t *oled, spi_host_device_t host, int cs_io, int dc_io, 
 esp_err_t oled_display_measure(oled_t *oled, float bus_voltage, float current, float power) {
     if (!oled || !oled->panel_handle) return ESP_FAIL;
 
-    // LƯU Ý: Driver esp_lcd chuẩn chỉ hỗ trợ đẩy điểm ảnh (bitmap).
-    // Nó KHÔNG có sẵn hàm vẽ chữ (Draw String).
-    // Bạn cần dùng thư viện LVGL hoặc tự viết hàm vẽ font bitmap để hiển thị số.
+    // Tạo một buffer chứa dữ liệu hình ảnh (128 cột * 64 hàng / 8 bit = 1024 bytes)
+    // Vì RAM ESP32 lớn, ta có thể cấp phát động hoặc tĩnh
+    uint8_t *buffer = heap_caps_malloc(1024, MALLOC_CAP_DMA);
+    if (!buffer) return ESP_ERR_NO_MEM;
 
-    // Ví dụ xóa màn hình (gửi toàn màu đen):
-    // uint8_t *black_screen = calloc(128 * 64 / 8, 1);
-    // esp_lcd_panel_draw_bitmap(oled->panel_handle, 0, 0, 128, 64, black_screen);
-    // free(black_screen);
+    // TEST 1: Xóa trắng màn hình (Ghi toàn bit 1)
+    // Nếu màn hình sáng trắng -> Driver hoạt động tốt!
+    memset(buffer, 0xFF, 1024); 
 
+    // Gửi buffer xuống màn hình
+    // Tọa độ: x(0 -> 127), y(0 -> 63)
+    esp_lcd_panel_draw_bitmap(oled->panel_handle, 0, 0, 128, 64, buffer);
+
+    free(buffer); // Giải phóng bộ nhớ
     return ESP_OK;
 }

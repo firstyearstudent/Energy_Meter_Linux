@@ -5,10 +5,10 @@
 #include "esp_log.h"
 #include "esp_timer.h"
 #include "driver/i2c_master.h"
-#include "driver/spi_master.h" // Dùng trực tiếp driver SPI chuẩn của ESP-IDF
+#include "driver/spi_master.h"
 
 // Header custom của dự án
-#include "oled_init.h" // Header mới đã sửa cho esp_lcd
+#include "oled_init.h" 
 #include "ina226.h"
 
 static const char *TAG = "EnergyMeter";
@@ -20,12 +20,12 @@ static const char *TAG = "EnergyMeter";
 #define I2C_PORT_NUM                I2C_NUM_0
 
 // SPI cho OLED (SSD1306)
-#define PIN_NUM_MISO                -1  // OLED không cần MISO
-#define PIN_NUM_MOSI                23  // D1
-#define PIN_NUM_CLK                 18  // D0
-#define PIN_NUM_CS                  5   // Chip Select
-#define PIN_NUM_DC                  17  // Data/Command
-#define PIN_NUM_RST                 16  // Reset
+#define PIN_NUM_MISO                -1  
+#define PIN_NUM_MOSI                23  
+#define PIN_NUM_CLK                 18  
+#define PIN_NUM_CS                  5   
+#define PIN_NUM_DC                  17  
+#define PIN_NUM_RST                 16  
 
 #define SAMPLE_PERIOD_MS            1000
 
@@ -34,7 +34,7 @@ void app_main(void)
     esp_err_t err;
 
     // ---------------------------------------------------------
-    // 1. Khởi tạo SPI Bus (Trực tiếp, không qua spi_init wrapper cũ)
+    // 1. Khởi tạo SPI Bus
     // ---------------------------------------------------------
     ESP_LOGI(TAG, "Initializing SPI Bus...");
     spi_bus_config_t bus_cfg = {
@@ -43,20 +43,18 @@ void app_main(void)
         .sclk_io_num = PIN_NUM_CLK,
         .quadwp_io_num = -1,
         .quadhd_io_num = -1,
-        .max_transfer_sz = 4096, // Kích thước buffer đủ cho màn hình
+        .max_transfer_sz = 4096, 
     };
-    // Sử dụng SPI2_HOST
     ESP_ERROR_CHECK(spi_bus_initialize(SPI2_HOST, &bus_cfg, SPI_DMA_CH_AUTO));
 
     // ---------------------------------------------------------
-    // 2. Khởi tạo OLED (Sử dụng driver esp_lcd mới)
+    // 2. Khởi tạo OLED
     // ---------------------------------------------------------
     oled_t oled;
-    // Hàm này (trong oled_init.c mới) sẽ tạo Panel IO và gắn vào Bus SPI2
     ESP_ERROR_CHECK(oled_init(&oled, SPI2_HOST, PIN_NUM_CS, PIN_NUM_DC, PIN_NUM_RST, 10 * 1000 * 1000));
 
     // ---------------------------------------------------------
-    // 3. Khởi tạo I2C Master Bus (Cho INA226)
+    // 3. Khởi tạo I2C Bus
     // ---------------------------------------------------------
     ESP_LOGI(TAG, "Initializing I2C Bus...");
     i2c_master_bus_config_t i2c_bus_config = {
@@ -77,25 +75,26 @@ void app_main(void)
     ESP_LOGI(TAG, "Initializing INA226...");
     ina226_handle_t ina_dev;
     ina226_config_t ina_cfg = INA226_CONFIG_DEFAULT;
-
-    // QUAN TRỌNG: Kiểm tra lại module thực tế của bạn
-    // Nếu module ghi R002 -> 0.002 Ohm (Phổ biến)
-    // Nếu module ghi R100 -> 0.1 Ohm
-    ina_cfg.shunt_resistance = 0.002;
+    ina_cfg.i2c_address = 0x40; 
+    ina_cfg.i2c_clock_speed = 100000; 
+    
+    // --- QUAN TRỌNG: KIỂM TRA LẠI MODULE ---
+    // Nếu trên lưng trở ghi "R100" -> Điền 0.1
+    // Nếu trên lưng trở ghi "R002" -> Điền 0.002 (Phổ biến hơn với module xanh/tím)
+    ina_cfg.shunt_resistance = 0.1; 
     ina_cfg.max_current = 10.0;
 
     err = ina226_init(bus_handle, &ina_cfg, &ina_dev);
     if (err != ESP_OK) {
-       ESP_LOGE(TAG, "INA226 init failed: %s", esp_err_to_name(err));
-       // Có thể thêm logic retry hoặc return tại đây
+       // Nếu init thất bại, nghĩa là I2C lỗi hoặc sai địa chỉ
+       ESP_LOGE(TAG, "INA226 init failed: %s (Kiem tra day SDA/SCL hoac dia chi)", esp_err_to_name(err));
     } else {
+       // Nếu init thành công, nghĩa là chip ĐÃ TRẢ LỜI (ACK)
+       ESP_LOGI(TAG, "=> CHIP INA226 KET NOI TOT!"); 
        ESP_ERROR_CHECK(ina226_calibrate(ina_dev, ina_cfg.max_current, ina_cfg.shunt_resistance));
     }
 
     ESP_LOGI(TAG, "System Initialized. Starting Loop...");
-
-    // In Header cho Logger Python (nếu cần)
-    // printf("TIMESTAMP,VOLTAGE,CURRENT,POWER\n");
 
     // ---------------------------------------------------------
     // 5. Vòng lặp chính
@@ -111,7 +110,7 @@ void app_main(void)
         if (err == ESP_OK) ina226_get_power(ina_dev, &power);
 
         if (err == ESP_OK) {
-            // 1. Hiển thị OLED (Hiện tại chỉ là placeholder giữ chỗ)
+            // 1. Hiển thị OLED 
             oled_display_measure(&oled, bus_v, current, power);
 
             // 2. Gửi Log qua UART cho máy tính
@@ -119,6 +118,8 @@ void app_main(void)
             // Format chuẩn CSV: timestamp, V, I, P
             printf("%lld,%.3f,%.6f,%.3f\n", ts, bus_v, current, power);
         } else {
+            // Chỉ báo lỗi nếu trước đó Init thành công mà giờ đọc lỗi
+            // Giúp tránh spam log nếu phần cứng hỏng từ đầu
             ESP_LOGE(TAG, "Sensor Read Error: %s", esp_err_to_name(err));
         }
 

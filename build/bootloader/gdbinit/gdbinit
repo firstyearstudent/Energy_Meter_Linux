@@ -1,2 +1,2 @@
-source /home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader/gdbinit/symbols
-source /home/manhquan/esp/esp-idf/Energy_Meter/build/bootloader/gdbinit/connect
+source C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader/gdbinit/symbols
+source C:/Espressif/frameworks/esp-idf-v5.5/Energy_Meter_Linux/build/bootloader/gdbinit/connect
