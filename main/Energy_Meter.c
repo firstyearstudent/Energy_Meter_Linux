@@ -80,7 +80,6 @@ void app_main(void)
     
     // --- QUAN TRỌNG: KIỂM TRA LẠI MODULE ---
     // Nếu trên lưng trở ghi "R100" -> Điền 0.1
-    // Nếu trên lưng trở ghi "R002" -> Điền 0.002 (Phổ biến hơn với module xanh/tím)
     ina_cfg.shunt_resistance = 0.1; 
     ina_cfg.max_current = 10.0;
 
